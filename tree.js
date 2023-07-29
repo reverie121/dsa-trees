@@ -20,15 +20,15 @@ class Tree {
 
     let sum = 0;
 
-    let toVisitQueue = [this.root];
+    let toVisitStack = [this.root];
     
-    while (toVisitQueue.length) {
-        let current = toVisitQueue.shift();
+    while (toVisitStack.length) {
+        let current = toVisitStack.pop();
 
         sum += current.val;
 
         for (let child of current.children) {
-            toVisitQueue.push(child)
+            toVisitStack.push(child)
         }
     }      
 
@@ -42,17 +42,17 @@ class Tree {
 
     let count = 0;
 
-    let toVisitQueue = [this.root];
+    let toVisitStack = [this.root];
     
-    while (toVisitQueue.length) {
-        let current = toVisitQueue.shift();
+    while (toVisitStack.length) {
+        let current = toVisitStack.pop();
 
         if (current.val % 2 == 0) {
             count += 1;
         }
 
         for (let child of current.children) {
-            toVisitQueue.push(child)
+            toVisitStack.push(child)
         }
     }       
 
@@ -67,17 +67,17 @@ class Tree {
 
     let count = 0;
 
-    let toVisitQueue = [this.root];
+    let toVisitStack = [this.root];
     
-    while (toVisitQueue.length) {
-        let current = toVisitQueue.shift();
+    while (toVisitStack.length) {
+        let current = toVisitStack.pop();
 
         if (current.val > lowerBound) {
             count += 1;
         }
 
         for (let child of current.children) {
-            toVisitQueue.push(child)
+            toVisitStack.push(child)
         }
     }       
 
