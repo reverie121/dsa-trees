@@ -16,60 +16,114 @@ class BinaryTree {
   /** minDepth(): return the minimum depth of the tree -- that is,
    * the length of the shortest path from the root to a leaf. */
 
-  minDepth() {
+  minDepth(node=this.root) {
+    if (node === null) return 0;
 
+    /* compute the depth of each subtree */
+    let lDepth = this.maxDepth(node.left);
+    let rDepth = this.maxDepth(node.right);
+
+    /* use the smaller one */
+    if (lDepth < rDepth)
+        return (lDepth + 1);
+    else
+        return (rDepth + 1);
   }
 
   /** maxDepth(): return the maximum depth of the tree -- that is,
    * the length of the longest path from the root to a leaf. */
 
-  maxDepth() {
+  maxDepth(node=this.root) {
+    if (node === null) return 0;
 
+    /* compute the depth of each subtree */
+    let lDepth = this.maxDepth(node.left);
+    let rDepth = this.maxDepth(node.right);
+
+    /* use the larger one */
+    if (lDepth > rDepth)
+        return (lDepth + 1);
+    else
+        return (rDepth + 1);
   }
 
   /** maxSum(): return the maximum sum you can obtain by traveling along a path in the tree.
    * The path doesn't need to start at the root, but you can't visit a node more than once. */
 
-  maxSum() {
+  maxSum(node=this.root) {
+    if (node === null) return 0;
 
-  }
+    function maxSumHelper(node) {
+      /* compute the sum of each subtree */
+      let lSum = node.left !== null ? maxSumHelper(node.left) : 0;
+      let rSum = node.right !== null ? maxSumHelper(node.right) : 0;
+
+      /* use the larger one */
+      if (lSum > rSum)
+          return (lSum + node.val);
+      else
+          return (rSum + node.val);
+      }      
+
+      let left = maxSumHelper(node.left)
+      let right = maxSumHelper(node.right);
+
+      return left + right + node.val;
+    }
+    
 
   /** nextLarger(lowerBound): return the smallest value in the tree
    * which is larger than lowerBound. Return null if no such value exists. */
 
   nextLarger(lowerBound) {
+    if (this.root === null) return null;
 
+    let val;
+
+    let toVisitStack = [this.root];
+    
+    while (toVisitStack.length) {
+        let current = toVisitStack.pop();
+
+        if (current.val > lowerBound && (!val || current.val < val)) val = current.val;
+
+        if (current.left) toVisitStack.push(current.left);        
+        if (current.right) toVisitStack.push(current.right);
+
+    }          
+
+    return val ? val : null;
   }
 
   /** Further study!
    * areCousins(node1, node2): determine whether two nodes are cousins
    * (i.e. are at the same level but have different parents. ) */
 
-  areCousins(node1, node2) {
+  // areCousins(node1, node2) {
 
-  }
+  // }
 
   /** Further study!
    * serialize(tree): serialize the BinaryTree object tree into a string. */
 
-  static serialize() {
+  // static serialize() {
 
-  }
+  // }
 
   /** Further study!
    * deserialize(stringTree): deserialize stringTree into a BinaryTree object. */
 
-  static deserialize() {
+  // static deserialize() {
 
-  }
+  // }
 
   /** Further study!
    * lowestCommonAncestor(node1, node2): find the lowest common ancestor
    * of two nodes in a binary tree. */
 
-  lowestCommonAncestor(node1, node2) {
+  // lowestCommonAncestor(node1, node2) {
     
-  }
+  // }
 }
 
 module.exports = { BinaryTree, BinaryTreeNode };
